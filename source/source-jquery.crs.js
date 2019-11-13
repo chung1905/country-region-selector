@@ -94,6 +94,11 @@
         if (regionId) {
             regionSelector = '#' + regionId;
         }
+        var crsGroup = $(countryElement).attr("data-crs-group");
+        if (crsGroup) {
+            regionSelector = '[data-crs-group="'+ crsGroup + '"]' + regionSelector;
+        }
+
         var regionElement = $(regionSelector)[0];
         if (regionElement) {
             _initRegionField(regionElement);
