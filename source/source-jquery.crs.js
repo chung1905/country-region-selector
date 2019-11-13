@@ -84,13 +84,17 @@
         }
         this.selectedIndex = foundIndex;
 
-        var regionID = $(countryElement).attr("data-region-id");
-        if (!regionID) {
-            console.error("Missing data-region-id on country-region-selector country field.");
+        var regionId = $(countryElement).attr("data-region-id");
+        var regionSelector = $(countryElement).attr("data-region-selector");
+        if (!regionSelector && !regionId) {
+            console.error("Require data-region-id (or data-region-selector) on country-region-selector country field.");
             return;
         }
 
-        var regionElement = $("#" + regionID)[0];
+        if (regionId) {
+            regionSelector = '#' + regionId;
+        }
+        var regionElement = $(regionSelector)[0];
         if (regionElement) {
             _initRegionField(regionElement);
 
@@ -114,7 +118,7 @@
                 _populateRegionFields(countryElement, regionElement);
             }
         } else {
-            console.error("Region dropdown DOM node with ID " + regionID + " not found.");
+            console.error("Region dropdown DOM node with query $(" + regionSelector + ") not found.");
         }
 
         countryElement.setAttribute("data-crs-loaded", "true");
