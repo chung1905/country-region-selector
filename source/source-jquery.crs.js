@@ -48,16 +48,17 @@
             return;
         }
 
-        countryElement.length = 0;
         var customOptionStr = $(countryElement).attr("data-default-option");
         var defaultOptionStr = customOptionStr ? customOptionStr : _defaultCountryStr;
         var showEmptyOption = countryElement.getAttribute("data-show-default-option");
         _showEmptyCountryOption = (showEmptyOption === null) ? true : (showEmptyOption === "true");
 
-        var defaultSelectedValue = $(countryElement).attr("data-default-value");
+        var countryValue = $(countryElement).val();
+        var defaultSelectedValue = countryValue ? countryValue : $(countryElement).attr("data-default-value");
         var customValue = $(countryElement).attr("data-value");
         var foundIndex = 0;
 
+        countryElement.length = 0;
         if (_showEmptyCountryOption) {
             this.options[0] = new Option(defaultOptionStr, '');
         }
@@ -96,11 +97,12 @@
         }
         var crsGroup = $(countryElement).attr("data-crs-group");
         if (crsGroup) {
-            regionSelector = '[data-crs-group="'+ crsGroup + '"]' + regionSelector;
+            regionSelector = '[data-crs-group="' + crsGroup + '"]' + regionSelector;
         }
 
         var regionElement = $(regionSelector)[0];
         if (regionElement) {
+            var regionValue = $(regionElement).val();
             _initRegionField(regionElement);
 
             $(this).on("change", function () {
@@ -111,7 +113,7 @@
             if (defaultSelectedValue && countryElement.selectedIndex > 0) {
                 _populateRegionFields(countryElement, regionElement);
 
-                var defaultRegionSelectedValue = $(regionElement).attr("data-default-value");
+                var defaultRegionSelectedValue = regionValue ? regionValue : $(regionElement).attr("data-default-value");
 
                 var useShortcode = (regionElement.getAttribute("data-value") === "shortcode");
                 if (defaultRegionSelectedValue !== null) {
@@ -217,7 +219,7 @@
 
             var weWantAndHaveShortCodes = displayType === 'shortcode' && regionData.hasShortcodes;
             var indexToSort = weWantAndHaveShortCodes ? 1 : 0;
-            regionData.regions.sort(function(a, b) {
+            regionData.regions.sort(function (a, b) {
                 var x = a[indexToSort].toLowerCase();
                 var y = b[indexToSort].toLowerCase();
                 return x < y ? -1 : x > y ? 1 : 0;
@@ -254,7 +256,7 @@
         }
 
         // now prepend the preferred countries
-        for (var i=0; i<preferredShortCodes.length; i++) {
+        for (var i = 0; i < preferredShortCodes.length; i++) {
             var code = preferredShortCodes[i];
             updatedCountries.unshift(preferredMap[code]);
         }
