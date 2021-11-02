@@ -107,7 +107,7 @@ var _data = [["Afghanistan","AF","Badakhshan~BDS|Badghis~BDG|Baghlan~BGL|Balkh~B
             };
 
             // if the country dropdown has a default value, populate the region field as well
-            if (defaultSelectedValue !== null && countryElement.selectedIndex > 0) {
+            if (defaultSelectedValue !== null && countryElement.selectedIndex >= _showEmptyCountryOption) {
                 _populateRegionFields(countryElement, regionElement);
 
                 var defaultRegionSelectedValue = regionElement.getAttribute("data-default-value");
