@@ -73,7 +73,11 @@ and behaviour.
 
 ##### country fields
 
-- `data-region-id` - required. This should contain the ID of the region field that it's being mapped to.
+- `data-region-id` - required (not required if using `data-region-selector` in jQuery version). This should contain the 
+ID of the region field that it's being mapped to.
+- `data-region-selector` - optional (**jQuery version only**) (can be replaced for `data-region-id`), this should
+ contain a [jQuery selector](https://api.jquery.com/category/selectors/) query to search region element. Use this for 
+ more options selector.
 - `data-default-option` - optional. Default: "Select country". This determines the default, blank option display value.
 - `data-show-default-option` - optional. True by default. This shows the "Select Country" default option (or whatever
  string you've set). Set it to "false" to turn it off.
@@ -97,7 +101,9 @@ https://github.com/country-regions/country-region-data/blob/master/data.json
 This should contain a comma-delimited list of the country short codes you want moved, e.g. `data-preferred="CA,US,MX"`.
 - `data-preferred-delim` - optional. If you use the `data-preferred` option, you may want a line separating them from 
 the other countries in the list. This setting lets you provide a string that will act as separator.
-
+- `crs-group` - optional (**jQuery version only**). If this attribute is used, the region element will be selected only
+ if it have the same `crs-group` value. It will be useful when you want to use many crs-fields in one page. This should
+ contain an unique string.
 
 ##### region fields
 - `data-blank-option` - before the user selects a country, there's a single <option> displayed which by default is the
@@ -112,6 +118,7 @@ you show a 2-code abbreviation instead. **Please note that all the abbreviations
 [this thread](https://github.com/country-regions/country-region-selector/issues/2) that explains how the structure works.** If 
 a region field is set to 2-char and a user user selects a country that doesn't have a region, it will show the full
 country name instead.
+- `crs-group` - optional (**jQuery version only**). This should contain the same value as `crs-group` of country element.
 
 
 ### Working with dynamic HTML 
